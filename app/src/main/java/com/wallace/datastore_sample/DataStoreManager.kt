@@ -36,9 +36,17 @@ open class DataStoreManager<T>(
         }
     }
 
+    open suspend fun updateData(value: T) {
+        context.dataStore.edit { prefs ->
+            prefs.clear()
+            prefs[_prefsKey] = value
+        }
+    }
+
     open suspend fun removeData() {
         context.dataStore.edit { prefs ->
             prefs.remove(_prefsKey)
+            prefs.clear()
         }
     }
 }

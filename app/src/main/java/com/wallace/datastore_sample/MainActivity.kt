@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.wallace.datastore_sample.databinding.ActivityMainBinding
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -33,6 +33,12 @@ class MainActivity : AppCompatActivity() {
             getName()
         }
 
+        binding.btnUpdate.setOnClickListener {
+            lifecycleScope.launch {
+                nameDataStore.updateData("Baldenebre")
+            }
+        }
+
         binding.btnRemove.setOnClickListener {
             lifecycleScope.launch {
                 nameDataStore.removeData()
@@ -42,9 +48,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun getName() {
         lifecycleScope.launchWhenStarted {
+            //  First way: request on demand, not a live data
+            binding.tvwText.text = nameDataStore.getData().first() ?: "404 Not Found"
+
+            //  Second way: live data, changes when it's updated
+            /*
             nameDataStore.getData().collect { prefs ->
                 binding.tvwText.text = prefs ?: "404 Not Found"
             }
+            */
         }
     }
 }
