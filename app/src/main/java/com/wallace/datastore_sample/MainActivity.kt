@@ -1,8 +1,7 @@
 package com.wallace.datastore_sample
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.wallace.datastore_sample.databinding.ActivityMainBinding
 import kotlinx.coroutines.flow.collect
